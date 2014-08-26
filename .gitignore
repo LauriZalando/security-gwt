@@ -1,0 +1,8 @@
+target/
+nbproject/
+.*
+!/.gitignore
+*.iml
+.idea/
+maven-eclipse.xml
+config-service.json
