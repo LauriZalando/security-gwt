@@ -316,7 +316,10 @@ public final class SimpleHtmlSanitizer implements HtmlSanitizer {
 
         sanitized.append(tag);
         if (builderForSanitizedAttrSegment.length() > 0) {
-            sanitized.append(' ').append(builderForSanitizedAttrSegment);
+
+            // due to http://code.google.com/p/google-web-toolkit/issues/detail?id=4097 we have to use the .toString()
+            // method here. might be fixed for newer gwt versions. causes troubles only in debug mode
+            sanitized.append(' ').append(builderForSanitizedAttrSegment.toString());
         }
 
         if (hasEndTag(segment)) {
@@ -401,7 +404,11 @@ public final class SimpleHtmlSanitizer implements HtmlSanitizer {
                     final boolean isCssDefinedInWhiteList = checkIfCssIsDefinedInWhiteListAndSanitize(
                             sanitizedCssBuilder, attributeValue);
                     if (isCssDefinedInWhiteList) {
-                        builderForSanitizedAttrSegment.append("='").append(sanitizedCssBuilder).append('\'');
+
+                        // due to http://code.google.com/p/google-web-toolkit/issues/detail?id=4097 we have to use the
+                        // .toString() method here. might be fixed for newer gwt versions. causes troubles only in
+                        // debug mode
+                        builderForSanitizedAttrSegment.append("='").append(sanitizedCssBuilder.toString()).append('\'');
                     } else {
                         return false;
                     }
